@@ -4,7 +4,6 @@ Automated power ranker for 12-team ESPN Fantasy Football leagues built with Exce
 
 
 ## Output
----------
 
 #### Overall Rankings
 ![Main Output Table](https://user-images.githubusercontent.com/21109084/28046500-0a77a640-65b2-11e7-971f-2f6ec8386c16.png)
@@ -19,7 +18,6 @@ Automated power ranker for 12-team ESPN Fantasy Football leagues built with Exce
 ![Scoring Summary](https://user-images.githubusercontent.com/21109084/28046627-051cab5e-65b3-11e7-84cf-3f27c5577b72.png)
 
 ## Algorithm
-------------
 
 To calculate a team's overall power ranking score, the ranker uses a weighted average of three metrics: **roster strength**, **season performance**, and **recent performance**. The relative weights of these metrics adjusts throughout the season -- as the season goes on, the impact of season-long win/loss strongly increases and the impact of roster strength decreases.
 
@@ -109,7 +107,6 @@ This model was built with the goal of simulating "human" power rankings (e.g., [
 - Roster Strength: 100% - SeasonWeight - RecentWeight
 
 ## Excel Model
---------------
 
 The power rankings are run through a single Excel file with some help from VBA for pictures/graphs. The model for week 13 of last year's season is included in this repository. Exploring the model sheet by sheet:
 
@@ -271,7 +268,6 @@ The next step is to determine each team's positional corps (i.e., find the RB1, 
 After ranking each positional column's values, the ranks are used to populate a QB1, QB2, etc. table which is read in by the consolidated "Team Data" sheet.
 
 ## Todos
---------
 
  - Write installation and usage documentation
  - Extend functionality to other league sizes (8-, 10-, and 14-team leagues)
