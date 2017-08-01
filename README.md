@@ -1,20 +1,48 @@
 # Fantasy Football Power Ranker
 
-Automated power ranker for 12-team ESPN Fantasy Football leagues built with Excel and VBA.
+Automated power ranker built for a 12-team ESPN Fantasy Football league using Excel and VBA.
 
+
+**Table of contents:**
+- [Output](#output)
+- [Algorithm](#algorithm)
+  - [Roster Strength](#roster-strength)
+  - [Season Performance](#season-performance)
+  - [Recent Performance](#recent-performance)
+  - [Weighting](#weighting)
+- [Excel Model](#excel-model)
+  - [Output](#output-1)
+  - [Power Rankings](#power-rankings)
+  - [Team Rankings](#team-rankings)
+  - [Scores](#scores)
+  - [Score Graph](#score-graph)
+  - [Output](#output-1)
+  - [Team Data](#team-data)
+  - [Playoffs](#playoffs)
+  - [Schedule / CBS / ESPN](#schedule--cbs--espn)
+  - [1, 2, 3, ..., 12](#1-2-3--12)
+- [Todos](#todos)
 
 ## Output
 
 #### Overall Rankings
+Weekly summary table with each team's latest stats. Team pictures and trophies/skulls dropped in with VBA.
+
 ![Main Output Table](https://user-images.githubusercontent.com/21109084/28046500-0a77a640-65b2-11e7-971f-2f6ec8386c16.png)
 
 #### Roster Rankings
+Rankings for each team's players. Includes positional rankings and the best/worst corps for each position across the league.
+
 ![Roster Rankings](https://user-images.githubusercontent.com/21109084/28046526-43474a7a-65b2-11e7-820b-675784db2f45.png)
 
 #### Position Rankings
+Details and ranks the positional corps for each team. Player ordering and ratings calculations use weekly trade values from CBS Sports.
+
 ![Position Rankings](https://user-images.githubusercontent.com/21109084/28046577-9a0ba220-65b2-11e7-9abc-c1091823e4bc.png)
 
 #### Scoring Summary
+Graphically displays each team's scores across the season. Green circles are wins and red circles are losses. Larger circles are for more recent weeks; sizing updates done using VBA.
+
 ![Scoring Summary](https://user-images.githubusercontent.com/21109084/28046627-051cab5e-65b3-11e7-84cf-3f27c5577b72.png)
 
 ## Algorithm
@@ -108,13 +136,13 @@ This model was built with the goal of simulating "human" power rankings (e.g., [
 
 ## Excel Model
 
-The power rankings are run through a single Excel file with some help from VBA for pictures/graphs. The model for week 13 of last year's season is included in this repository. Exploring the model sheet by sheet:
+The power rankings are run through a single Excel file with some help from VBA for pictures/graphs. The Excel file for week 13 of last year's season is included in this repository. Exploring the model sheet by sheet:
 
 #### Output
 
-Main output sheet which includes overall rank, rank trend, last game, metric ranks (roster, season, recent), playoff odds, and number of times each team was the high ("JR") and low ("SV") scorer each week.
+Main [output](#overall-rankings) sheet which includes overall rank, rank trend, last game, metric ranks (roster, season, recent), playoff odds, and number of times each team was the high ("JR") and low ("SV") scorer each week.
 
-Images (team icon, # of JRs, # of SVs) are updated by pressing refresh button which executes a VBA code snippet to reload images from the drive and position accordingly. The rest of the output table is linked and formatted to fully update without manual input. 
+Images (team icon, # of JRs, # of SVs) are updated by pressing refresh button which executes a VBA code snippet to reload images from the drive and position accordingly. The rest of the output table is linked to other sheets with `INDEX/MATCH` functions and formatted to update without manual input. The "Trending" arrows are cell formatted to show an up arrow/down arrow/dashes for a positive/negative/zero value and are conditionally formatted to be green/red/grey accordingly.
 
 #### Power Rankings
 
@@ -122,17 +150,17 @@ Serves as the final calculation sheet for the output sheet.
 
 - Consolidates roster, season, and recent performance ratings and performs final weighting
 - Calculates overall and individual metric rankings
-- Links to "Scores" sheet to extract score and result from last game
-- Links to "Playoffs" sheet for calculated top 2 (first round bye) and top 6 (playoffs cutoff) seeding chances
-- Includes hard-coded overall rankings from the previous week's file to determine week-to-week ranking trend
+- Links to ["Scores" sheet](#scores) to extract score and result from last game
+- Links to ["Playoffs" sheet](#playoffs) for calculated top 2 (first round bye) and top 6 (playoffs cutoff) seeding chances
+- Includes copy-pasted overall rankings from the previous week's file to determine week-to-week ranking trend
 
 #### Team Rankings
 
-Performs final calculations for roster strength metric and provides various team ranking outputs.
+Performs final calculations for roster strength metric and provides various [roster ranking outputs](#roster-rankings).
 
 #### Scores
 
-Links to "Schedule" sheet which contains raw ESPN output for all previous scores and all future scheduled matchups. Summary section of sheet contains summary performance statistics and calculations for recent performance metric as described above. The score calculations section parses the ESPN page as follows:
+Links to ["Schedule" sheet](#schedule--cbs--espn) which contains raw ESPN output for all previous scores and all future scheduled matchups. Summary section of sheet contains summary performance statistics and calculations for recent performance metric as described above. The score calculations section parses the ESPN page as follows:
 
 - There are 13 columns corresponding to each week of the fantasy season
 - Each team gets a row for each specific metric (team score, opponent name, etc.) for that week
@@ -152,7 +180,7 @@ Links to "Schedule" sheet which contains raw ESPN output for all previous scores
 - **Win Streak / Loss Streak / Streak:** Calculates the current win or loss streak for each team for each week
 
 #### Score Graph
-This sheet primarily builds the scoring visualization found above. The graph consists of three parts which are separately formatted/created using VBA.
+This sheet primarily builds the [scoring visualization found above](#scoring-summary). The graph consists of three parts which are separately formatted/created using VBA.
 - A light grey min-max line connecting the bubbles for the lowest and highest scores
 - A "wins" series for each week showing green bubbles representing winning scores for that week
 - A corresponding "losses" series with red bubbles
@@ -191,7 +219,7 @@ The process to find the 15 lowest overall scores involves the exact same steps w
 
 #### Team Data
 
-Runs the roster strength algorithm described above on each team's roster. Team rosters are pulled from their respective sheets using `INDIRECT` functions.
+Runs the [roster strength algorithm](#roster-strength) on each team's roster. Team rosters are pulled from their respective sheets using `INDIRECT` functions.
 
 #### Playoffs
 Simulates the rest of the season's games to develop percentage odds for each team's playoff chances. A deep dive on the methodology behind these calculations ~~would require a lot more coffee for me to write~~ is beyond the scope of this document.
